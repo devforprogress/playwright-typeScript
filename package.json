@@ -1,0 +1,21 @@
+{
+  "name": "pw-pom-ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.48.1",
+    "@types/node": "^22.7.7"
+  },
+  "dependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.5",
+    "moment-timezone": "^0.5.46",
+    "winston": "^3.15.0"
+  }
+}
