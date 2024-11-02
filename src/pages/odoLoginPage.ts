@@ -7,7 +7,7 @@ import exp from "constants";
 
 export default class LoginPage {
 
-    private readonly username = "Username"
+    private readonly username = "Email"
     private readonly password = "Password"
     private readonly loginBtn = "#login-button"
 
@@ -18,10 +18,9 @@ export default class LoginPage {
 
         await this.page.getByPlaceholder(this.username).fill(decrypt(usrName))
         await this.page.getByPlaceholder(this.password).fill(process.env.saucePassword!)
-        await this.page.locator(this.loginBtn).click().catch((error) => { logger.error(error) })
+        await this.page.getByRole("button", { name: "Log in" }).click().catch((error) => { logger.error(error) })
         logger.info("Clicked LogIn Button")
-        const myProductsPage = new ProductsPage(this.page);
-        return myProductsPage;
+
 
 
     }
