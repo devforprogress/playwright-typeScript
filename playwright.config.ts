@@ -54,7 +54,12 @@ export default defineConfig({
       testMatch: '**/*Workflow.spec.ts',
       dependencies: ['setup']
     },
+    {
+      name: 'signUp',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: '**/*Up.spec.ts',
 
+    },
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },

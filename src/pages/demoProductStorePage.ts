@@ -1,8 +1,8 @@
-import { expect, Page } from "@playwright/test";
+import { expect, Page, test } from "@playwright/test";
 
 
 
-export default class productPage {
+export default class ProductPage {
     constructor(private page: Page) { }
     private readonly phonesPageLink = 'Phones'
     private readonly laptopsPageLink = 'Laptops'
@@ -14,17 +14,24 @@ export default class productPage {
     // typeOfProduct can be either phone, laptop or monitor
     async addToCart(typeOfProduct: string) {
         if (typeOfProduct === 'phone') {
-            await this.page.getByRole("link", { name: this.phonesPageLink }).click()
-            await expect(this.page.getByRole("link", { name: this.phoneNokiaLink })).toBeVisible()
-            await this.page.getByRole("link", { name: this.phoneNokiaLink }).click()
-            await expect(this.page.getByRole("heading", { name: this.phoneNokiaHeading })).toBeVisible()
-            const popupPromise = this.page.on('dialog', async (d) => {
-                expect(d.message()).toContain("Product added.")
-                await d.accept()
+            // Test Step
+            await test.step("Go to phones page", async () => {
+                await this.page.getByRole("link", { name: this.phonesPageLink }).click()
+                await expect(this.page.getByRole("link", { name: this.phoneNokiaLink })).toBeVisible()
             })
-            await this.page.getByRole("link", { name: this.addToCartLink }).click()
+            // Test Step
+            await test.step("Add to Cart", async () => {
+                await this.page.getByRole("link", { name: this.phoneNokiaLink }).click()
+                await expect(this.page.getByRole("heading", { name: this.phoneNokiaHeading })).toBeVisible()
+                const popupPromise = this.page.on('dialog', async (d) => {
+                    expect(d.message()).toContain("Product added.")
+                    await d.accept()
+                })
+                await this.page.getByRole("link", { name: this.addToCartLink }).click()
 
-            console.log("phoneAdded");
+                console.log("phoneAdded");
+            })
+
 
 
         }

@@ -1,6 +1,6 @@
 import { Page } from "@playwright/test";
 
-export default class cartPage {
+export default class CartPage {
     constructor(private page: Page) { }
     private readonly tableBodyId = '#tbodyid'
     private readonly cartLink = '#cartur'
@@ -14,5 +14,11 @@ export default class cartPage {
         // Check the number of rows
         const rowCount = await rows.count();
         return rowCount
+    }
+
+    async deleteEntryFromCart() {
+
+
+
     }
 }

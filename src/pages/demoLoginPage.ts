@@ -1,7 +1,7 @@
-import { expect, Page } from "@playwright/test";
+import test, { expect, Page } from "@playwright/test";
 
 
-export default class loginPage {
+export default class LoginPage {
     constructor(private page: Page) { }
     private readonly loginLink = "Log in"
     private readonly userName = "#loginusername"
@@ -11,6 +11,7 @@ export default class loginPage {
     private readonly loginBtn = "Log in"
 
     //Pre-Req home page is loaded
+    @step("This is Login step...")
     async login() {
         await this.page.getByRole("link", { name: this.loginLink }).click()
         await this.page.locator(this.userName).fill("odo105")
@@ -21,5 +22,19 @@ export default class loginPage {
         }).toPass({ timeout: 10000 })
 
 
+    }
+}
+
+export function step(stepName?: string) {
+    return function decorator(
+        target: Function,
+        context: ClassMethodDecoratorContext
+    ) {
+        return function replacementMethod(...args: any) {
+            const name = `${stepName || (context.name as string)} (${this.name})`
+            return test.step(name, async () => {
+                return await target.call(this, ...args)
+            })
+        }
     }
 }
